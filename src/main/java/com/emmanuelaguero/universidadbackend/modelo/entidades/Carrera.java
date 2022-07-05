@@ -11,7 +11,7 @@ public class Carrera implements Serializable {
     private Integer cantMaterias;
     private Integer cantAnios;
     private LocalDateTime fechaAlta;
-    private LocalDateTime fechaUltimaModificacion;
+    private LocalDateTime fechaModificacion;
     public Carrera() {
     }
 
@@ -62,12 +62,12 @@ public class Carrera implements Serializable {
         this.fechaAlta = fechaAlta;
     }
 
-    public LocalDateTime getFechaUltimaModificacion() {
-        return fechaUltimaModificacion;
+    public LocalDateTime getFechaModificacion() {
+        return fechaModificacion;
     }
 
-    public void setFechaUltimaModificacion(LocalDateTime fechaUltimaModificacion) {
-        this.fechaUltimaModificacion = fechaUltimaModificacion;
+    public void setFechaModificacion(LocalDateTime fechaModificacion) {
+        this.fechaModificacion = fechaModificacion;
     }
 
     @Override
@@ -78,7 +78,7 @@ public class Carrera implements Serializable {
                 ", cantMaterias=" + cantMaterias +
                 ", cantAnios=" + cantAnios +
                 ", fechaAlta=" + fechaAlta +
-                ", fechaUltimaModificacion=" + fechaUltimaModificacion +
+                ", fechaUltimaModificacion=" + fechaModificacion +
                 '}';
     }
 

@@ -10,7 +10,7 @@ public class Pabellon implements Serializable {
     private Double mt2;
     private String nombre;
     private LocalDateTime fechaAlta;
-    private LocalDateTime fechaUltimaModificacion;
+    private LocalDateTime fechaModificacion;
     private Direccion direccion;
 
     public Pabellon() {
@@ -55,12 +55,12 @@ public class Pabellon implements Serializable {
         this.fechaAlta = fechaAlta;
     }
 
-    public LocalDateTime getFechaUltimaModificacion() {
-        return fechaUltimaModificacion;
+    public LocalDateTime getFechaModificacion() {
+        return fechaModificacion;
     }
 
-    public void setFechaUltimaModificacion(LocalDateTime fechaUltimaModificacion) {
-        this.fechaUltimaModificacion = fechaUltimaModificacion;
+    public void setFechaModificacion(LocalDateTime fechaModificacion) {
+        this.fechaModificacion = fechaModificacion;
     }
 
     public Direccion getDireccion() {
@@ -78,7 +78,7 @@ public class Pabellon implements Serializable {
                 ", mt2=" + mt2 +
                 ", nombre='" + nombre + '\'' +
                 ", fechaAlta=" + fechaAlta +
-                ", fechaUltimaModificacion=" + fechaUltimaModificacion +
+                ", fechaUltimaModificacion=" + fechaModificacion +
                 ", direccion=" + direccion +
                 '}';
     }

@@ -11,7 +11,7 @@ public abstract class Persona implements Serializable {
     private String apellido;
     private String dni;
     private LocalDateTime fechaAlta;
-    private LocalDateTime fechaUltimaModificacion;
+    private LocalDateTime fechaModificacion;
     private Direccion direccion;
 
     public Persona() {
@@ -65,12 +65,12 @@ public abstract class Persona implements Serializable {
         this.fechaAlta = fechaAlta;
     }
 
-    public LocalDateTime getFechaUltimaModificacion() {
-        return fechaUltimaModificacion;
+    public LocalDateTime getFechaModificacion() {
+        return fechaModificacion;
     }
 
-    public void setFechaUltimaModificacion(LocalDateTime fechaUltimaModificacion) {
-        this.fechaUltimaModificacion = fechaUltimaModificacion;
+    public void setFechaModificacion(LocalDateTime fechaModificacion) {
+        this.fechaModificacion = fechaModificacion;
     }
 
     public Direccion getDireccion() {
@@ -89,7 +89,7 @@ public abstract class Persona implements Serializable {
                 ", apellido='" + apellido + '\'' +
                 ", dni='" + dni + '\'' +
                 ", fechaAlta=" + fechaAlta +
-                ", fechaUltimaModificacion=" + fechaUltimaModificacion +
+                ", fechaUltimaModificacion=" + fechaModificacion +
                 ", direccion=" + direccion +
                 '}';
     }

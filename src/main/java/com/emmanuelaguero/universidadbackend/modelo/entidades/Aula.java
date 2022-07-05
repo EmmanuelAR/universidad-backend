@@ -14,10 +14,11 @@ public class Aula implements Serializable {
     private Integer cantPupitres;
     private Pizarron pizarro;
     private LocalDateTime fechaAlta;
-    private LocalDateTime fechaUltimaModificacion;
+    private LocalDateTime fechaModificacion;
 
     public Aula() {
     }
+
 
     public Aula(Integer id, Integer nroAula, String medidas, Integer cantPupitres, Pizarron pizarro) {
         this.id = id;
@@ -64,7 +65,7 @@ public class Aula implements Serializable {
                 ", cantPupitres=" + cantPupitres +
                 ", pizarro=" + pizarro +
                 ", fechaAlta=" + fechaAlta +
-                ", fechaUltimaModificacion=" + fechaUltimaModificacion +
+                ", fechaUltimaModificacion=" + fechaModificacion +
                 '}';
     }
 
@@ -89,11 +90,11 @@ public class Aula implements Serializable {
     }
 
     public LocalDateTime getFechaUltimaModificacion() {
-        return fechaUltimaModificacion;
+        return fechaModificacion;
     }
 
     public void setFechaUltimaModificacion(LocalDateTime fechaUltimaModificacion) {
-        this.fechaUltimaModificacion = fechaUltimaModificacion;
+        this.fechaModificacion = fechaUltimaModificacion;
     }
 
     @Override
