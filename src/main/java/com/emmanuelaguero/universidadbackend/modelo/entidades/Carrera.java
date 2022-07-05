@@ -4,23 +4,22 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-public class Pabellon implements Serializable {
+public class Carrera implements Serializable {
 
     private Integer id;
-    private Double mt2;
     private String nombre;
+    private Integer cantMaterias;
+    private Integer cantAnios;
     private LocalDateTime fechaAlta;
     private LocalDateTime fechaUltimaModificacion;
-    private Direccion direccion;
-
-    public Pabellon() {
+    public Carrera() {
     }
 
-    public Pabellon(Integer id, Double mt2, String nombre, Direccion direccion) {
+    public Carrera(Integer id, String nombre, Integer cantMaterias, Integer cantAnios) {
         this.id = id;
-        this.mt2 = mt2;
         this.nombre = nombre;
-        this.direccion = direccion;
+        this.cantMaterias = cantMaterias;
+        this.cantAnios = cantAnios;
     }
 
     public Integer getId() {
@@ -31,20 +30,28 @@ public class Pabellon implements Serializable {
         this.id = id;
     }
 
-    public Double getMt2() {
-        return mt2;
-    }
-
-    public void setMt2(Double mt2) {
-        this.mt2 = mt2;
-    }
-
     public String getNombre() {
         return nombre;
     }
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public Integer getCantMaterias() {
+        return cantMaterias;
+    }
+
+    public void setCantMaterias(Integer cantMaterias) {
+        this.cantMaterias = cantMaterias;
+    }
+
+    public Integer getCantAnios() {
+        return cantAnios;
+    }
+
+    public void setCantAnios(Integer cantAnios) {
+        this.cantAnios = cantAnios;
     }
 
     public LocalDateTime getFechaAlta() {
@@ -63,23 +70,15 @@ public class Pabellon implements Serializable {
         this.fechaUltimaModificacion = fechaUltimaModificacion;
     }
 
-    public Direccion getDireccion() {
-        return direccion;
-    }
-
-    public void setDireccion(Direccion direccion) {
-        this.direccion = direccion;
-    }
-
     @Override
     public String toString() {
-        return "Pabellon{" +
+        return "Carrera{" +
                 "id=" + id +
-                ", mt2=" + mt2 +
                 ", nombre='" + nombre + '\'' +
+                ", cantMaterias=" + cantMaterias +
+                ", cantAnios=" + cantAnios +
                 ", fechaAlta=" + fechaAlta +
                 ", fechaUltimaModificacion=" + fechaUltimaModificacion +
-                ", direccion=" + direccion +
                 '}';
     }
 
@@ -87,8 +86,8 @@ public class Pabellon implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Pabellon pabellon = (Pabellon) o;
-        return id.equals(pabellon.id) && nombre.equals(pabellon.nombre);
+        Carrera carrera = (Carrera) o;
+        return id.equals(carrera.id) && nombre.equals(carrera.nombre);
     }
 
     @Override

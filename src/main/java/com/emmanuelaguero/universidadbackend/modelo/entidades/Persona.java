@@ -4,22 +4,24 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-public class Pabellon implements Serializable {
+public abstract class Persona implements Serializable {
 
     private Integer id;
-    private Double mt2;
     private String nombre;
+    private String apellido;
+    private String dni;
     private LocalDateTime fechaAlta;
     private LocalDateTime fechaUltimaModificacion;
     private Direccion direccion;
 
-    public Pabellon() {
+    public Persona() {
     }
 
-    public Pabellon(Integer id, Double mt2, String nombre, Direccion direccion) {
+    public Persona(Integer id, String nombre, String apellido, String dni, Direccion direccion) {
         this.id = id;
-        this.mt2 = mt2;
         this.nombre = nombre;
+        this.apellido = apellido;
+        this.dni = dni;
         this.direccion = direccion;
     }
 
@@ -31,20 +33,28 @@ public class Pabellon implements Serializable {
         this.id = id;
     }
 
-    public Double getMt2() {
-        return mt2;
-    }
-
-    public void setMt2(Double mt2) {
-        this.mt2 = mt2;
-    }
-
     public String getNombre() {
         return nombre;
     }
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public String getDni() {
+        return dni;
+    }
+
+    public void setDni(String dni) {
+        this.dni = dni;
     }
 
     public LocalDateTime getFechaAlta() {
@@ -73,10 +83,11 @@ public class Pabellon implements Serializable {
 
     @Override
     public String toString() {
-        return "Pabellon{" +
+        return "Persona{" +
                 "id=" + id +
-                ", mt2=" + mt2 +
                 ", nombre='" + nombre + '\'' +
+                ", apellido='" + apellido + '\'' +
+                ", dni='" + dni + '\'' +
                 ", fechaAlta=" + fechaAlta +
                 ", fechaUltimaModificacion=" + fechaUltimaModificacion +
                 ", direccion=" + direccion +
@@ -87,12 +98,12 @@ public class Pabellon implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Pabellon pabellon = (Pabellon) o;
-        return id.equals(pabellon.id) && nombre.equals(pabellon.nombre);
+        Persona persona = (Persona) o;
+        return id.equals(persona.id) && dni.equals(persona.dni);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nombre);
+        return Objects.hash(id, dni);
     }
 }
