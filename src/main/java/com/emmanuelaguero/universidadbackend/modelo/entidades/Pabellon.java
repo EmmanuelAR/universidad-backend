@@ -1,17 +1,46 @@
 package com.emmanuelaguero.universidadbackend.modelo.entidades;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
+import java.util.Set;
 
+@Entity
+@Table(name="pabellones")
 public class Pabellon implements Serializable {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @Column(name="metros_cuadrados")
     private Double mt2;
+
+    @Column(name="mombre_pabellon",unique = true,nullable = false)
     private String nombre;
-    private LocalDateTime fechaAlta;
-    private LocalDateTime fechaModificacion;
+
+    @Embedded
+    @AttributeOverrides(
+            @AttributeOverride(name="codigoPostal",column = @Column(name = "codigo_postal"))
+    )
     private Direccion direccion;
+
+    @Column(name="fecha_alta")
+    private LocalDateTime fechaAlta;
+
+    @Column(name="fecha_modificacion")
+    private LocalDateTime fechaModificacion;
+
+    @OneToMany(
+            mappedBy = "pabellon",
+            fetch = FetchType.LAZY
+    )
+    private Set<Aula> aulas;
+
+
+
+
+
 
     public Pabellon() {
     }
@@ -94,5 +123,21 @@ public class Pabellon implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(id, nombre);
+    }
+
+    public Set<Aula> getAulas() {
+        return aulas;
+    }
+
+    public void setAulas(Set<Aula> aulas) {
+        this.aulas = aulas;
+    }
+    @PrePersist
+    private void antesPersistir(){
+        this.fechaAlta = LocalDateTime.now();
+    }
+    @PreUpdate
+    private void antesUpdate(){
+        this.fechaModificacion = LocalDateTime.now();
     }
 }

@@ -1,17 +1,38 @@
 package com.emmanuelaguero.universidadbackend.modelo.entidades;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+@Entity
+@Table(name="personas")
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Persona implements Serializable {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @Column(nullable = false,length = 60)
     private String nombre;
+
+    @Column(nullable = false,length = 60)
     private String apellido;
+
+    @Column(nullable = false,unique = true,length = 10)
     private String dni;
+
+    @Column(name="fecha_alta")
     private LocalDateTime fechaAlta;
+
+    @Column(name="fecha_modificacion")
     private LocalDateTime fechaModificacion;
+
+    @Embedded
+    @AttributeOverrides(
+            @AttributeOverride(name="codigoPostal",column = @Column(name = "codigo_postal"))
+    )
     private Direccion direccion;
 
     public Persona() {
@@ -105,5 +126,14 @@ public abstract class Persona implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(id, dni);
+    }
+
+    @PrePersist
+    private void antesPersistir(){
+        this.fechaAlta = LocalDateTime.now();
+    }
+    @PreUpdate
+    private void antesUpdate(){
+        this.fechaModificacion = LocalDateTime.now();
     }
 }
