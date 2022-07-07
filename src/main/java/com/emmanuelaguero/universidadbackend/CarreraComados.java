@@ -26,11 +26,11 @@ public class CarreraComados implements CommandLineRunner {
 //        servicio.save(farma);
 //        servicio.save(IngIndustrial);
 
-        Iterable<Carrera> carreras = servicio.findCarrerasByNombreContains("ia");
-        carreras.forEach(System.out::println);
-        carreras = servicio.findCarrerasByNombreContainsIgnoreCase("Ia");
-        carreras.forEach(System.out::println);
-        carreras = servicio.findCarrerasByCantAniosAfter(2);
-        carreras.forEach(System.out::println);
+//        Iterable<Carrera> carreras = servicio.findCarrerasByNombreContains("ia");
+//        carreras.forEach(System.out::println);
+//        carreras = servicio.findCarrerasByNombreContainsIgnoreCase("Ia");
+//        carreras.forEach(System.out::println);
+//        carreras = servicio.findCarrerasByCantAniosAfter(2);
+//        carreras.forEach(System.out::println);
     }
 }

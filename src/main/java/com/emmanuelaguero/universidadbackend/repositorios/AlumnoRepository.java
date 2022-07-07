@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 @Repository("repositorioAlumnos")
 public interface AlumnoRepository extends PersonaRepository{
 
-    @Query("select p from Alumno p where p.carrera.nombre like %?1")
+    //cuando tengo un lazy load y ocupo acceder
+    @Query("select p from Alumno p join fetch p.carrera c where c.nombre like %?1")
     Iterable<Persona> buscarAlumnosByCarrera(String nombre);
 }
