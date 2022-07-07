@@ -14,18 +14,12 @@ import java.util.List;
 
 @SpringBootApplication
 public class UniversidadBackendApplication {
-    @Autowired
-    private AlumnoDAO servicioAlumnos;
+
 
     public static void main(String[] args) {
         String[] beans= SpringApplication.run(UniversidadBackendApplication.class, args).getBeanDefinitionNames();
 
     }
-    @Bean
-    public CommandLineRunner runner(){
-        return args -> {
 
-        };
-    }
 
 }
