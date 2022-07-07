@@ -17,25 +17,20 @@ public class CarreraComados implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        /*Carrera ingeSistemas = new Carrera(null,"Ingenieria en Sistemas",50,5);
-        Carrera save = servicio.save(ingeSistemas);
-        System.out.println(save.toString());*/
+//        Carrera micro = new Carrera(null,"Microbiologia",70,4);
+//        Carrera medicina = new Carrera(null,"Medicina",80,4);
+//        Carrera farma = new Carrera(null,"Farmacia",60,4);
+//        Carrera IngIndustrial = new Carrera(null,"Ingenieria Industrial",40,4);
+//        servicio.save(micro);
+//        servicio.save(medicina);
+//        servicio.save(farma);
+//        servicio.save(IngIndustrial);
 
-        Carrera carrera = null;
-        Optional<Carrera> recuperado = servicio.findById(1);
-        if(recuperado.isPresent()){
-            carrera = recuperado.get();
-            System.out.println(carrera.toString());
-        }else{
-            System.out.println("Carrera no encontrada");
-        }
-
-        carrera.setCantMaterias(65);
-        carrera.setCantAnios(6);
-        servicio.save(carrera);
-        System.out.println(servicio.findById(1).orElse(new Carrera()).toString());
-
-        servicio.deleteById(1);
-        System.out.println(servicio.findById(1).orElse(new Carrera()).toString());
+        Iterable<Carrera> carreras = servicio.findCarrerasByNombreContains("ia");
+        carreras.forEach(System.out::println);
+        carreras = servicio.findCarrerasByNombreContainsIgnoreCase("Ia");
+        carreras.forEach(System.out::println);
+        carreras = servicio.findCarrerasByCantAniosAfter(2);
+        carreras.forEach(System.out::println);
     }
 }
