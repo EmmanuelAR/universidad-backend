@@ -1,12 +1,6 @@
 package com.emmanuelaguero.universidadbackend.servicios.contratos;
 
+
 import com.emmanuelaguero.universidadbackend.modelo.entidades.Persona;
 
-import java.util.Optional;
-
-public interface PersonaDAO {
-    Optional<Persona> findById(Integer id);
-    Persona save(Persona persona);
-    Iterable<Persona> findAll();
-    void deleteById(Integer id);
-}
+public interface PersonaDAO  extends GenericoDAO<Persona>{}
