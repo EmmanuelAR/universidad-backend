@@ -1,26 +1,24 @@
 package com.emmanuelaguero.universidadbackend.servicios.implementaciones;
 
-
 import com.emmanuelaguero.universidadbackend.modelo.entidades.Persona;
-
 import com.emmanuelaguero.universidadbackend.repositorios.AlumnoRepository;
 import com.emmanuelaguero.universidadbackend.repositorios.PersonaRepository;
-import com.emmanuelaguero.universidadbackend.servicios.contratos.AlumnoDAO;
+import com.emmanuelaguero.universidadbackend.repositorios.ProfesorRepository;
+import com.emmanuelaguero.universidadbackend.servicios.contratos.ProfesorDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-
 @Service
-public class AlumnoDAOImpl extends PersonaDAOImpl implements AlumnoDAO {
+public class ProfesorDAOImpl extends PersonaDAOImpl implements ProfesorDAO {
 
     @Autowired
-    public AlumnoDAOImpl(@Qualifier("repositorioAlumnos")PersonaRepository repository) {
+    public ProfesorDAOImpl(@Qualifier("repositorioProfesores") PersonaRepository repository) {
         super(repository);
     }
 
     @Override
-    public Iterable<Persona> buscarAlumnosByCarrera(String nombre) {
-        return ((AlumnoRepository) repository).buscarAlumnosByCarrera(nombre);
+    public Iterable<Persona> findProfesoresByCarrera(String carrera){
+        return ((ProfesorRepository) repository).findProfesoresByCarrera(carrera);
     }
 }
