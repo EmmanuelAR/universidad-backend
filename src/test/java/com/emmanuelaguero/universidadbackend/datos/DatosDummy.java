@@ -10,14 +10,18 @@ import static com.emmanuelaguero.universidadbackend.modelo.entidades.enumeradore
 
 public class DatosDummy {
 
-    public static Carrera carrera01(){
-        return new Carrera(null,"Ingenieria en sistemas",50,5);
+    public static Carrera carrera01(boolean conID){
+        Carrera carrera = (conID) ? new Carrera(1,"Ingenieria en sistemas",50,5):
+         new Carrera(null,"Ingenieria en sistemas",50,5);
+                return carrera;
     }
     public static Carrera carrera02(){
         return new Carrera(null,"Licenciatura en sistemas",45,4);
     }
-    public static Carrera carrera03(){
-        return new Carrera(null,"Ingenieria en Industrial",60,5);
+    public static Carrera carrera03(boolean conID){
+        Carrera carrera = (conID) ?  new Carrera(3,"Ingenieria en Industrial",60,5):
+         new Carrera(null,"Ingenieria en Industrial",60,5);
+        return carrera;
     }
     public static Persona empleado01(){return new Empleado(null,"Emmanuel","Aguero","117790953",new Direccion(), new BigDecimal(12345.56),ADMINISTRATIVO);}
     public static Persona empleado02(){return new Empleado(null,"Mariana","Jara","543213444",new Direccion(), new BigDecimal(12345.56),MANTENIMIENTO);}

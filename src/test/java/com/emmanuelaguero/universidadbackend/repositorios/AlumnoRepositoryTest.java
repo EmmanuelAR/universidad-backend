@@ -31,7 +31,7 @@ class AlumnoRepositoryTest {
                 DatosDummy.alumnos01(),
                 DatosDummy.alumnos02(),
                 DatosDummy.alumno03()));
-        Carrera saveCarrera = carreraRepository.save(DatosDummy.carrera01());
+        Carrera saveCarrera = carreraRepository.save(DatosDummy.carrera01(false));
         saveAlumnos.forEach(alumno -> ((Alumno)alumno).setCarrera(saveCarrera));
         alumnoRepository.saveAll(saveAlumnos);
         //when
@@ -48,7 +48,7 @@ class AlumnoRepositoryTest {
                 DatosDummy.alumnos01(),
                 DatosDummy.alumnos02(),
                 DatosDummy.alumno03()));
-        Carrera saveCarrera = carreraRepository.save(DatosDummy.carrera01());
+        Carrera saveCarrera = carreraRepository.save(DatosDummy.carrera01(false));
         saveAlumnos.forEach(alumno -> ((Alumno)alumno).setCarrera(saveCarrera));
         alumnoRepository.saveAll(saveAlumnos);
         //when
