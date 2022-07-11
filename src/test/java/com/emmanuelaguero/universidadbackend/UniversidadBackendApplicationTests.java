@@ -19,8 +19,6 @@ class UniversidadBackendApplicationTests {
         }
     }
 
-
-
     @Test
     @DisplayName("Suma valor A y valor B")
     void sumaDeValores() {
