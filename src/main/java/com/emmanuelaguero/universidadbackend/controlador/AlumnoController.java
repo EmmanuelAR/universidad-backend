@@ -19,48 +19,52 @@ public class AlumnoController {
 
     private final PersonaDAO alumnoDao;
 
+
+    @Autowired
     public AlumnoController(@Qualifier("alumnoDAOImpl") PersonaDAO alumnoDao) {
         this.alumnoDao = alumnoDao;
     }
 
-//    @GetMapping
-//    public List<Persona> getAll(){
-//        List<Carrera> carreras= (List<Carrera>) carreraDAO.findAll();
-//        if (carreras.isEmpty()){
-//            throw new BadRequestException("No existen carreras.");
-//        }
-//        return carreras;
-//    }
 
-//    @GetMapping("/{codigo}")
-//    public Carrera getById(@PathVariable(value = "codigo",required = false) Integer id){
-//        Optional<Carrera> result = carreraDAO.findById(id);
-//        if(!result.isPresent()){
-//            throw new BadRequestException(String.format("Carrera con ID %d no encontrada.",id));
-//        }
-//        return result.get();
-//    }
+    @GetMapping
+    public List<Persona> getAll(){
+        List<Persona> personas= (List<Persona>) alumnoDao.findAll();
+        if (personas.isEmpty()){
+            throw new BadRequestException("No existen alumnos.");
+        }
+        return personas;
+    }
+
+    @GetMapping("/{id}")
+    public Persona getById(@PathVariable(required = false) Integer id){
+        Optional<Persona> result = alumnoDao.findById(id);
+        if(!result.isPresent()){
+            throw new BadRequestException(String.format("Alumno con ID %d no encontrada.",id));
+        }
+        return result.get();
+    }
 
     @PostMapping
     public Persona addAlumno(@RequestBody Persona nuevo){
         return alumnoDao.save(nuevo);
     }
 
-//    @PutMapping("/{id}")
-//    public Carrera updateCarrera(@PathVariable Integer id,@RequestBody Carrera carrera){
-//        Carrera carreraUpdate = null;
-//        Optional<Carrera> recuperada = carreraDAO.findById(id);
-//        if(!recuperada.isPresent()){
-//            throw new BadRequestException(String.format("Carrera con ID %d no encontrada.",id));
-//        }
-//        carreraUpdate = recuperada.get();
-//        carreraUpdate.setCantAnios(carrera.getCantAnios());
-//        carreraUpdate.setCantMaterias(carrera.getCantMaterias());
-//        return carreraDAO.save(carreraUpdate);
-//    }
+    @PutMapping("/{id}")
+    public Persona updateAlumno(@PathVariable Integer id,@RequestBody Persona alumno){
+        Persona alumnoUpdate = null;
+        Optional<Persona> recuperada = alumnoDao.findById(id);
+        if(!recuperada.isPresent()){
+            throw new BadRequestException(String.format("Alumno con ID %d no encontrado.",id));
+        }
+        alumnoUpdate = recuperada.get();
+        alumnoUpdate.setNombre(alumno.getNombre());
+        alumnoUpdate.setApellido(alumno.getApellido());
+        alumnoUpdate.setDireccion(alumno.getDireccion());
+        return alumnoDao.save(alumnoUpdate);
+    }
 
-//    @DeleteMapping("/{id}")
-//    public void deleteById(@PathVariable Integer id){
-//        carreraDAO.deleteById(id);
-//    }
+    @DeleteMapping("/{id}")
+    public void deleteById(@PathVariable Integer id){
+        alumnoDao.deleteById(id);
+    }
 }

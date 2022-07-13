@@ -1,5 +1,7 @@
 package com.emmanuelaguero.universidadbackend.modelo.entidades;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 
@@ -17,6 +19,7 @@ public class Alumno extends Persona{
             fetch =FetchType.LAZY
     )
     @JoinColumn(name = "carrera_id")
+    @JsonIgnoreProperties({"hibernateLazyInitializer","alumnos"}) //evitar jalarlos.
     private Carrera carrera;
 
     public Alumno() {
