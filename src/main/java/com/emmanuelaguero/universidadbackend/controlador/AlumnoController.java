@@ -1,6 +1,7 @@
 package com.emmanuelaguero.universidadbackend.controlador;
 
 import com.emmanuelaguero.universidadbackend.exception.BadRequestException;
+import com.emmanuelaguero.universidadbackend.modelo.entidades.Alumno;
 import com.emmanuelaguero.universidadbackend.modelo.entidades.Carrera;
 import com.emmanuelaguero.universidadbackend.modelo.entidades.Persona;
 import com.emmanuelaguero.universidadbackend.servicios.contratos.CarreraDAO;
@@ -14,30 +15,24 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/alumnos")
-public class AlumnoController {
+public class AlumnoController extends PersonaController{
 
 
-    private final PersonaDAO alumnoDao;
+
+    private final CarreraDAO carreraDAO;
 
 
     @Autowired
-    public AlumnoController(@Qualifier("alumnoDAOImpl") PersonaDAO alumnoDao) {
-        this.alumnoDao = alumnoDao;
+    public AlumnoController(@Qualifier("alumnoDAOImpl") PersonaDAO alumnoDao, CarreraDAO carreraDAO) {
+        super(alumnoDao);
+        nombreEntidad="Alumno";
+        this.carreraDAO = carreraDAO;
     }
 
-
-    @GetMapping
-    public List<Persona> getAll(){
-        List<Persona> personas= (List<Persona>) alumnoDao.findAll();
-        if (personas.isEmpty()){
-            throw new BadRequestException("No existen alumnos.");
-        }
-        return personas;
-    }
 
     @GetMapping("/{id}")
     public Persona getById(@PathVariable(required = false) Integer id){
-        Optional<Persona> result = alumnoDao.findById(id);
+        Optional<Persona> result = service.findById(id);
         if(!result.isPresent()){
             throw new BadRequestException(String.format("Alumno con ID %d no encontrada.",id));
         }
@@ -46,13 +41,13 @@ public class AlumnoController {
 
     @PostMapping
     public Persona addAlumno(@RequestBody Persona nuevo){
-        return alumnoDao.save(nuevo);
+        return service.save(nuevo);
     }
 
     @PutMapping("/{id}")
     public Persona updateAlumno(@PathVariable Integer id,@RequestBody Persona alumno){
         Persona alumnoUpdate = null;
-        Optional<Persona> recuperada = alumnoDao.findById(id);
+        Optional<Persona> recuperada = service.findById(id);
         if(!recuperada.isPresent()){
             throw new BadRequestException(String.format("Alumno con ID %d no encontrado.",id));
         }
@@ -60,11 +55,30 @@ public class AlumnoController {
         alumnoUpdate.setNombre(alumno.getNombre());
         alumnoUpdate.setApellido(alumno.getApellido());
         alumnoUpdate.setDireccion(alumno.getDireccion());
-        return alumnoDao.save(alumnoUpdate);
+        return service.save(alumnoUpdate);
     }
 
     @DeleteMapping("/{id}")
     public void deleteById(@PathVariable Integer id){
-        alumnoDao.deleteById(id);
+        service.deleteById(id);
     }
+
+
+    @PutMapping("/{idAlumno}/carrera/{idCarrera}")
+    public Persona asignarCarreraAlumno(@PathVariable Integer idAlumno, @PathVariable Integer idCarrera){
+        Optional<Persona> resultAlumno = service.findById(idAlumno);
+        if(!resultAlumno.isPresent()){
+            throw new BadRequestException(String.format("Alumno con ID %d no encontrada.",idAlumno));
+        }
+        Optional<Carrera> resultCarrera = carreraDAO.findById(idCarrera);
+        if(!resultCarrera.isPresent()){
+            throw new BadRequestException(String.format("Carrrea con ID %d no encontrada.",idCarrera));
+        }
+        Persona alumno = resultAlumno.get();
+        Carrera carrera = resultCarrera.get();
+        ((Alumno)alumno).setCarrera(carrera);
+        return service.save(alumno);
+    }
+
+
 }
