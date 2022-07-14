@@ -1,5 +1,6 @@
 package com.emmanuelaguero.universidadbackend.controlador.dto;
 
+import com.emmanuelaguero.universidadbackend.modelo.dto.AlumnoDTO;
 import com.emmanuelaguero.universidadbackend.modelo.dto.CarreraDTO;
 import com.emmanuelaguero.universidadbackend.modelo.dto.PersonaDTO;
 import com.emmanuelaguero.universidadbackend.modelo.entidades.Alumno;
@@ -13,12 +14,12 @@ import com.emmanuelaguero.universidadbackend.servicios.contratos.PersonaDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,4 +46,21 @@ public class AlumnoDTOController {
         mensaje.put("data",dto);
         return ResponseEntity.ok(mensaje);
     }
+
+    @PostMapping
+    public ResponseEntity<?> addAlumno(@Valid @RequestBody PersonaDTO nuevo, BindingResult result){
+        Map<String,Object> mensaje =new HashMap<>();
+        if(result.hasErrors()){
+            mensaje.put("success",Boolean.FALSE);
+
+            //mensaje.put("validaciones",validaciones);
+            return ResponseEntity.badRequest().body(mensaje);
+        }
+        Persona save = personaDAO.save(alumnoMapper.mapAlumno((AlumnoDTO) nuevo) );
+        mensaje.put("success",Boolean.TRUE);
+        mensaje.put("data",alumnoMapper.mapAlumno((Alumno) save));
+        return ResponseEntity.status(HttpStatus.CREATED).body(mensaje);
+    }
+
+
 }

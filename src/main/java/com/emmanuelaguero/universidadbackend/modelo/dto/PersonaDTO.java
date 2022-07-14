@@ -1,6 +1,11 @@
 package com.emmanuelaguero.universidadbackend.modelo.dto;
 
+import com.emmanuelaguero.universidadbackend.modelo.entidades.Alumno;
 import com.emmanuelaguero.universidadbackend.modelo.entidades.Direccion;
+import com.emmanuelaguero.universidadbackend.modelo.entidades.Empleado;
+import com.emmanuelaguero.universidadbackend.modelo.entidades.Profesor;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,6 +16,18 @@ import javax.validation.constraints.Size;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.NAME,
+        include = JsonTypeInfo.As.PROPERTY,
+        property = "tipo"
+)
+@JsonSubTypes(
+        {
+                @JsonSubTypes.Type(value = AlumnoDTO.class,name = "alumno"),
+                @JsonSubTypes.Type(value = ProfesorDTO.class,name = "profesor"),
+                @JsonSubTypes.Type(value = EmpleadoDTO.class,name = "empleado"),
+        }
+)
 public abstract  class PersonaDTO {
     private Integer id;
     private String nombre;
