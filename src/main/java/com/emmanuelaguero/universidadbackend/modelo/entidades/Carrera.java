@@ -3,6 +3,7 @@ package com.emmanuelaguero.universidadbackend.modelo.entidades;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -16,12 +17,17 @@ public class Carrera implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+
     @Column(name="nombre_carrera",nullable = false,unique = true,length = 80)
     private String nombre;
 
+
+    @Positive(message = "El valor no puede ser negativo") //validacion valor positivo
     @Column(name="cantidad_materias")
     private Integer cantMaterias;
 
+
+    @Positive(message = "El valor no puede ser negativo") //validacion valor positivo
     @Column(name="cantidad_anios")
     private Integer cantAnios;
 

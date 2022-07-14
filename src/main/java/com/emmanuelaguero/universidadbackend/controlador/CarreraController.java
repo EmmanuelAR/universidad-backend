@@ -5,8 +5,11 @@ import com.emmanuelaguero.universidadbackend.modelo.entidades.Carrera;
 import com.emmanuelaguero.universidadbackend.servicios.contratos.CarreraDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.naming.Binding;
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,15 +35,22 @@ public class CarreraController extends GenericController<Carrera,CarreraDAO>{
         return result.get();
     }
 
+    //Metodo con validaciones
     @PostMapping
-    public Carrera addCarrera(@RequestBody Carrera nuevo){
-        if(nuevo.getCantAnios()<0){
-            throw new BadRequestException("La cantidad de años no puede ser negativo.");
+    public ResponseEntity<?>  addCarrera(@Valid @RequestBody Carrera nuevo, BindingResult result){
+//        if(nuevo.getCantAnios()<0){
+//            throw new BadRequestException("La cantidad de años no puede ser negativo.");
+//        }
+//        if(nuevo.getCantMaterias()<0){
+//            throw new BadRequestException("La cantidad de materias no puede ser negativo.");
+//        }
+        Map<String,Object> validaciones = new HashMap<>();
+        if(result.hasErrors()){
+            result.getFieldErrors()
+                    .forEach(error -> validaciones.put(error.getField(),error.getDefaultMessage()));
+            return ResponseEntity.badRequest().body(validaciones);
         }
-        if(nuevo.getCantMaterias()<0){
-            throw new BadRequestException("La cantidad de materias no puede ser negativo.");
-        }
-        return service.save(nuevo);
+        return ResponseEntity.ok(service.save(nuevo));
     }
 
     //Ejemplo de como manejar el rensponse.
