@@ -3,6 +3,7 @@ package com.emmanuelaguero.universidadbackend.controlador.dto;
 import com.emmanuelaguero.universidadbackend.modelo.dto.CarreraDTO;
 import com.emmanuelaguero.universidadbackend.modelo.entidades.Carrera;
 import com.emmanuelaguero.universidadbackend.modelo.mapper.CarreraMapper;
+import com.emmanuelaguero.universidadbackend.modelo.mapper.mapstruct.CarreraMapperMS;
 import com.emmanuelaguero.universidadbackend.servicios.contratos.CarreraDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -23,6 +24,8 @@ public class CarreraDTOController {
 
     @Autowired
     private CarreraDAO carreraDAO;
+    @Autowired
+    private CarreraMapperMS mapperMS;
 
     @GetMapping
     public ResponseEntity<?> getAll(){
@@ -30,7 +33,7 @@ public class CarreraDTOController {
         List<Carrera> carreras = (List<Carrera>) carreraDAO.findAll();
         List<CarreraDTO> carreraDTOS = carreras
                 .stream()
-                .map(CarreraMapper::mapCarrera)
+                .map(mapperMS::mapCarrera)
                 .collect(Collectors.toList());
         mensaje.put("success",Boolean.TRUE);
         mensaje.put("data",carreraDTOS);

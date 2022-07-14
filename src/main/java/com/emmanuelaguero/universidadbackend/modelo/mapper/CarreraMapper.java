@@ -3,6 +3,7 @@ package com.emmanuelaguero.universidadbackend.modelo.mapper;
 import com.emmanuelaguero.universidadbackend.modelo.dto.CarreraDTO;
 import com.emmanuelaguero.universidadbackend.modelo.entidades.Carrera;
 
+@Deprecated
 public class CarreraMapper {
 
     public static CarreraDTO mapCarrera(Carrera carrera){
