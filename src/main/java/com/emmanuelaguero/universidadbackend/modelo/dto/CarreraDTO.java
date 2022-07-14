@@ -2,12 +2,26 @@ package com.emmanuelaguero.universidadbackend.modelo.dto;
 
 import lombok.*;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class CarreraDTO {
+
     private Integer codigo;
+
+    @NotNull
+    @NotEmpty(message = "Debe ingresar un valor.")
+    @Size(min = 0,max = 80)
     private String nombre;
+
+    @Positive(message = "El valor no puede ser negativo") //validacion valor positivo
     private Integer cantidad_materias;
+
+    @Positive(message = "El valor no puede ser negativo") //validacion valor positivo
     private Integer cantidad_anios;
 }

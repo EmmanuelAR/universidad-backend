@@ -22,12 +22,12 @@ public class Carrera implements Serializable {
     private String nombre;
 
 
-    @Positive(message = "El valor no puede ser negativo") //validacion valor positivo
+    //@Positive(message = "El valor no puede ser negativo") //validacion valor positivo
     @Column(name="cantidad_materias")
     private Integer cantMaterias;
 
 
-    @Positive(message = "El valor no puede ser negativo") //validacion valor positivo
+    //@Positive(message = "El valor no puede ser negativo") //validacion valor positivo
     @Column(name="cantidad_anios")
     private Integer cantAnios;
 
