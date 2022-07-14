@@ -8,6 +8,7 @@ import com.emmanuelaguero.universidadbackend.servicios.contratos.CarreraDAO;
 import com.emmanuelaguero.universidadbackend.servicios.contratos.PersonaDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,8 +17,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+@Deprecated //clase descontinuada
 @RestController
 @RequestMapping("/alumnos")
+@ConditionalOnProperty(prefix = "app",name = "controller.enable-dto",havingValue = "false")
 public class AlumnoController extends PersonaController{
 
 
