@@ -8,9 +8,12 @@ import com.emmanuelaguero.universidadbackend.servicios.contratos.CarreraDAO;
 import com.emmanuelaguero.universidadbackend.servicios.contratos.PersonaDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -45,17 +48,24 @@ public class AlumnoController extends PersonaController{
     }
 
     @PutMapping("/{id}")
-    public Persona updateAlumno(@PathVariable Integer id,@RequestBody Persona alumno){
+    public ResponseEntity<?> updateAlumno(@PathVariable Integer id, @RequestBody Persona alumno){
+        Map<String,Object> mensaje = new HashMap<>();
         Persona alumnoUpdate = null;
         Optional<Persona> recuperada = service.findById(id);
         if(!recuperada.isPresent()){
-            throw new BadRequestException(String.format("Alumno con ID %d no encontrado.",id));
+            //throw new BadRequestException(String.format("Alumno con ID %d no encontrado.",id));
+            mensaje.put("success",Boolean.FALSE);
+            mensaje.put("mensaje",String.format("Alumno con ID %d no encontrado.",id));
+            return ResponseEntity.badRequest().body(mensaje);
         }
         alumnoUpdate = recuperada.get();
         alumnoUpdate.setNombre(alumno.getNombre());
         alumnoUpdate.setApellido(alumno.getApellido());
         alumnoUpdate.setDireccion(alumno.getDireccion());
-        return service.save(alumnoUpdate);
+        mensaje.put("success",Boolean.TRUE);
+        mensaje.put("datos",service.save(alumnoUpdate));
+        return ResponseEntity.ok(mensaje);
+
     }
 
     @DeleteMapping("/{id}")
@@ -65,19 +75,30 @@ public class AlumnoController extends PersonaController{
 
 
     @PutMapping("/{idAlumno}/carrera/{idCarrera}")
-    public Persona asignarCarreraAlumno(@PathVariable Integer idAlumno, @PathVariable Integer idCarrera){
+    public ResponseEntity<?> asignarCarreraAlumno(@PathVariable Integer idAlumno, @PathVariable Integer idCarrera){
+        Map<String,Object> mensaje = new HashMap<>();
         Optional<Persona> resultAlumno = service.findById(idAlumno);
         if(!resultAlumno.isPresent()){
-            throw new BadRequestException(String.format("Alumno con ID %d no encontrada.",idAlumno));
+            //throw new BadRequestException(String.format("Alumno con ID %d no encontrada.",idAlumno));
+            mensaje.put("success",Boolean.FALSE);
+            mensaje.put("mensaje",String.format("Alumno con ID %d no encontrada.",idAlumno));
+            return ResponseEntity.badRequest().body(mensaje);
         }
         Optional<Carrera> resultCarrera = carreraDAO.findById(idCarrera);
         if(!resultCarrera.isPresent()){
-            throw new BadRequestException(String.format("Carrrea con ID %d no encontrada.",idCarrera));
+            //throw new BadRequestException(String.format("Carrrea con ID %d no encontrada.",idCarrera));
+            mensaje.put("success",Boolean.FALSE);
+            mensaje.put("mensaje",String.format("Carrrea con ID %d no encontrada.",idCarrera));
+            return ResponseEntity.badRequest().body(mensaje);
         }
         Persona alumno = resultAlumno.get();
         Carrera carrera = resultCarrera.get();
         ((Alumno)alumno).setCarrera(carrera);
-        return service.save(alumno);
+
+        mensaje.put("success",Boolean.TRUE);
+        mensaje.put("datos",service.save(alumno));
+        return ResponseEntity.ok(mensaje);
+
     }
 
 

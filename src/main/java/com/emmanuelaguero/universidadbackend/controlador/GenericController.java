@@ -2,9 +2,12 @@ package com.emmanuelaguero.universidadbackend.controlador;
 
 import com.emmanuelaguero.universidadbackend.exception.BadRequestException;
 import com.emmanuelaguero.universidadbackend.servicios.contratos.GenericoDAO;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class GenericController <E,S extends GenericoDAO<E>>{
 
@@ -16,12 +19,18 @@ public class GenericController <E,S extends GenericoDAO<E>>{
     }
 
     @GetMapping
-    public List<E> obtenerTodos(){
+    public ResponseEntity<?> obtenerTodos(){
+        Map<String,Object> mensaje = new HashMap<>();
         List<E> listado = (List<E>) service.findAll();
         if(listado.isEmpty()){
-            throw new BadRequestException(String.format("No se encontro %ss",nombreEntidad));
+            //throw new BadRequestException(String.format("No se encontro %ss",nombreEntidad));
+            mensaje.put("success",Boolean.FALSE);
+            mensaje.put("mensaje",String.format("No existen %ss",nombreEntidad));
+            return ResponseEntity.badRequest().body(mensaje);
         }
-        return listado;
+        mensaje.put("success",Boolean.TRUE);
+        mensaje.put("datos",listado);
+        return ResponseEntity.ok(mensaje);
     }
 
 }
